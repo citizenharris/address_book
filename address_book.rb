@@ -63,7 +63,7 @@ class Person
     puts "Email addresses:"
     @emails.each {|i| puts "- #{i}"}
     puts ""
-    puts "Phone Numbers"
+    puts "Phone Numbers:"
     @phone_numbers.each {|i| puts "- #{i}"}
   end
 end
@@ -73,6 +73,9 @@ a = Person.new 'joe', 'bloggs', '1 Jan 1990'
 a.add_email 'george@foo.com'
 a.add_email 'norge@foo.com'
 a.add_email 'lorge@foo.com'
+a.add_phone '123'
+a.add_phone '456'
+a.add_phone '789'
 a.print_details
 
 
