@@ -3,7 +3,7 @@ require 'date'
 describe Person do
   it 'should initialize' do
     a = Person.new 'joe', 'bloggs', '1 Jan 1990'
-    expect(a.dob).to eq (Date.parse('1 Jan 1990'))
+    expect(a.dob).to eq Date.parse('1 Jan 1990')
     expect(a.first_name).to eq 'joe'
     expect(a.surname).to eq 'bloggs'
   end
