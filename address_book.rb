@@ -1,4 +1,5 @@
-require "date"
+require 'date'
+require 'pry'
 
 class Person
   attr_accessor :first_name,
@@ -52,4 +53,40 @@ class Person
     "#{fullname} was born on #{@dob}.\n Their email addresses are: #{@emails}.\n Their phone numbers are #{@phone_numbers}"
   end
 
+
+
+  def print_details
+    puts "#{fullname}"
+    puts "------------"
+    puts "Date of birth: #{@dob.strftime('%d %b %Y')}"
+    puts ""
+    puts "Email addresses:"
+    @emails.each {|i| puts "- #{i}"}
+    puts ""
+    puts "Phone Numbers"
+    @phone_numbers.each {|i| puts "- #{i}"}
+  end
 end
+
+
+a = Person.new 'joe', 'bloggs', '1 Jan 1990'
+a.add_email 'george@foo.com'
+a.add_email 'norge@foo.com'
+a.add_email 'lorge@foo.com'
+a.print_details
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
