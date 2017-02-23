@@ -57,7 +57,7 @@ class Person
 
   def print_details
     puts "#{fullname}"
-    puts "------------"
+    puts "--------------------------"
     puts "Date of birth: #{@dob.strftime('%d %b %Y')}"
     puts ""
     puts "Email addresses:"
@@ -78,9 +78,23 @@ a.add_phone '456'
 a.add_phone '789'
 a.print_details
 
+class FamilyMember < Person
+attr_reader :relationship
 
+  def initialize first_name, surname, dob='1 Jan 1900', relationship='friend'
+    super(first_name, surname, dob)
+    @relationship = relationship.capitalize
+  end
+end
 
+class AddressBook
+  attr_reader :people
 
+  def initialize
+    @people = []
+  end
+
+end
 
 
 

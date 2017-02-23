@@ -47,3 +47,35 @@ describe Person do
   end
 
 end
+
+describe FamilyMember do
+  it 'should initialize' do
+    a = FamilyMember.new 'joe', 'bloggs', '1 Jan 1990', 'father'
+    expect(a.relationship).to eq 'Father'
+  end
+
+end
+
+describe AddressBook do
+  it 'should initialize'  do
+    book = AddressBook.new
+    expect(book.people).to eq []
+  end
+  
+  it 'should add people to the address book' do
+    a = Person.new 'joe', 'bloggs',
+    b = Person.new 'rick', 'sanchez'
+    book = AddressBook.new
+    book.add(a)
+    book.add(b)
+    expect(book.list).to eq "Address Book \n------------\n Entry 1: Joe Bloggs \nEntry 2: Rick Sanchez"
+  end
+
+end
+
+
+
+
+
+
+
