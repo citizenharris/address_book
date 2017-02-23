@@ -46,6 +46,15 @@ describe Person do
     expect(a.to_s).to eq "Joe Bloggs was born on 1990-01-01.\n Their email addresses are: [\"joe@foo.com\"].\n Their phone numbers are [\"07712345678\", \"02012345678\"]"
   end
 
+
+# it 'should print out the details of the person' do
+#     a = Person.new 'joe', 'bloggs', '1 Jan 1990'
+#     a.add_email 'george@foo.com'
+#     a.add_phone '123'
+#     a.add_phone '456'
+#     a.add_phone '789'
+#     expect(a.print_details).to eq "Joe Bloggs \n-------------------------- \nDate of birth: 01 Jan 1990 \nEmail addresses: \n- george@foo.com \nPhone Numbers: \n- 123 \n- 456 \n- 789"
+#   end
 end
 
 describe FamilyMember do
@@ -63,14 +72,22 @@ describe AddressBook do
   end
   
   it 'should add people to the address book' do
-    a = Person.new 'joe', 'bloggs',
+    a = Person.new 'joe', 'bloggs'
     b = Person.new 'rick', 'sanchez'
     book = AddressBook.new
     book.add(a)
     book.add(b)
-    expect(book.list).to eq "Address Book \n------------\n Entry 1: Joe Bloggs \nEntry 2: Rick Sanchez"
+    expect(book.people).to eq ["Joe Bloggs", "Rick Sanchez"]
   end
 
+  it 'should print out the address book' do
+    a = Person.new 'joe', 'bloggs'
+    b = Person.new 'rick', 'sanchez'
+    book = AddressBook.new
+    book.add(a)
+    book.add(b)
+    expect{book.list}.to output("Address Book \n------------ \nEntry 1: Joe Bloggs\nEntry 2: Rick Sanchez\n").to_stdout
+  end
 end
 
 

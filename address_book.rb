@@ -56,14 +56,9 @@ class Person
 
 
   def print_details
-    puts "#{fullname}"
-    puts "--------------------------"
-    puts "Date of birth: #{@dob.strftime('%d %b %Y')}"
-    puts ""
-    puts "Email addresses:"
+    print "#{fullname} \n-------------------------- \nDate of birth: #{@dob.strftime('%d %b %Y')} \n Email addresses: \n" 
     @emails.each {|i| puts "- #{i}"}
-    puts ""
-    puts "Phone Numbers:"
+    puts "\nPhone Numbers:"
     @phone_numbers.each {|i| puts "- #{i}"}
   end
 end
@@ -92,6 +87,19 @@ class AddressBook
 
   def initialize
     @people = []
+  end
+
+  def add ppl
+    unless ppl.is_a? Person
+      raise TypeError, 'This is not a person or family member'
+    else
+      @people << ppl.fullname
+    end
+  end
+
+  def list
+    puts "Address Book \n------------ \n"
+    @people.each_with_index {|name, index| puts "Entry #{index+1}: #{name}"}
   end
 
 end
