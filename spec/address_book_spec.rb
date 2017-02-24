@@ -1,37 +1,43 @@
 require 'date'
 
 describe Person do
+
+  let(:a) {Person.new 'joe', 'bloggs', '1 Jan 1990'}
+
   it 'should initialize' do
-    a = Person.new 'joe', 'bloggs', '1 Jan 1990'
     expect(a.dob).to eq Date.parse('1 Jan 1990')
     expect(a.first_name).to eq 'Joe'
     expect(a.surname).to eq 'Bloggs'
+    expect(a.emails).to eq []
+    expect(a.phone_numbers).to eq []
+  end
+
+  it 'should initialize without a date' do
+    a = Person.new 'joe', 'bloggs'
+    expect(a.dob).to eq nil
+    expect(a.first_name).to eq 'Joe'
+    expect(a.surname).to eq 'Bloggs'
+    expect(a.emails).to eq []
+    expect(a.phone_numbers).to eq []
   end
 
   it 'should return full name' do
-    a = Person.new 'joe', 'bloggs'
     expect(a.fullname).to eq 'Joe Bloggs'
   end
 
   it 'should add and show emails' do
-    a = Person.new 'joe', 'bloggs'
-    expect(a.emails).to eq []
     a.add_email 'joe@foo.com'
     a.add_email 'joe.bloggs@work.com'
     expect(a.emails).to eq ['joe@foo.com', 'joe.bloggs@work.com']
   end
 
   it 'should add and show phone numbers' do
-    a = Person.new 'joe', 'bloggs'
-    expect(a.phone_numbers).to eq []
     a.add_phone "07712345678"
     a.add_phone "02012345678"
     expect(a.phone_numbers).to eq ["07712345678", "02012345678"]
   end
 
   it 'should remove email' do
-    a = Person.new 'joe', 'bloggs'
-    expect(a.emails).to eq []
     a.add_email 'joe@foo.com'
     a.add_email 'joe.bloggs@work.com'
     a.remove_email 0
@@ -39,22 +45,12 @@ describe Person do
   end
 
   it 'should describe the Person instance' do
-    a = Person.new 'joe', 'bloggs', '1 Jan 1990'
     a.add_email 'joe@foo.com'
     a.add_phone "07712345678"
     a.add_phone "02012345678"
     expect(a.to_s).to eq "Joe Bloggs was born on 1990-01-01.\n Their email addresses are: [\"joe@foo.com\"].\n Their phone numbers are [\"07712345678\", \"02012345678\"]"
   end
 
-
-# it 'should print out the details of the person' do
-#     a = Person.new 'joe', 'bloggs', '1 Jan 1990'
-#     a.add_email 'george@foo.com'
-#     a.add_phone '123'
-#     a.add_phone '456'
-#     a.add_phone '789'
-#     expect(a.print_details).to eq "Joe Bloggs \n-------------------------- \nDate of birth: 01 Jan 1990 \nEmail addresses: \n- george@foo.com \nPhone Numbers: \n- 123 \n- 456 \n- 789"
-#   end
 end
 
 describe FamilyMember do
@@ -66,33 +62,26 @@ describe FamilyMember do
 end
 
 describe AddressBook do
+
+  let(:a)  {Person.new 'joe', 'bloggs'}
+  let(:b) {Person.new 'rick', 'sanchez'}
+  let(:book) {AddressBook.new}
+
   it 'should initialize'  do
-    book = AddressBook.new
     expect(book.people).to eq []
   end
   
   it 'should add people to the address book' do
-    a = Person.new 'joe', 'bloggs'
-    b = Person.new 'rick', 'sanchez'
-    book = AddressBook.new
     book.add(a)
     book.add(b)
-    expect(book.people).to eq ["Joe Bloggs", "Rick Sanchez"]
+    expect(book.people).to eq [a, b]
   end
 
   it 'should print out the address book' do
-    a = Person.new 'joe', 'bloggs'
-    b = Person.new 'rick', 'sanchez'
-    book = AddressBook.new
     book.add(a)
     book.add(b)
-    expect{book.list}.to output("Address Book \n------------ \nEntry 1: Joe Bloggs\nEntry 2: Rick Sanchez\n").to_stdout
+    expect{book.list}.to output("Address Book\n-------------\nEntry 1: Joe Bloggs\nEntry 2: Rick Sanchez\n").to_stdout
   end
+
+
 end
-
-
-
-
-
-
-

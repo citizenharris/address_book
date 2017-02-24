@@ -2,18 +2,13 @@ require 'date'
 require 'pry'
 
 class Person
-  attr_accessor :first_name,
-                :surname,
-                :dob,
-                :emails,
-                :phone_numbers
-  attr_accessor :emails,
-                :phone_numbers
+  attr_accessor :first_name, :surname, :dob, :emails, :phone_numbers
+  attr_accessor :emails, :phone_numbers
 
-  def initialize first_name, surname, dob="1 Jan 1900"
+  def initialize first_name, surname, dob=nil
     @first_name = first_name.capitalize
     @surname = surname.capitalize
-    @dob = Date.parse(dob)
+    @dob = Date.parse(dob) if dob
     @emails = []
     @phone_numbers = []
   end
@@ -56,29 +51,23 @@ class Person
 
 
   def print_details
-    print "#{fullname} \n-------------------------- \nDate of birth: #{@dob.strftime('%d %b %Y')} \n Email addresses: \n" 
+    puts "#{fullname}" 
+    puts "-" * fullname.length 
+    puts "Date of birth: #{@dob.strftime('%d %b %Y')}" 
+    puts "Email addresses: " 
     @emails.each {|i| puts "- #{i}"}
-    puts "\nPhone Numbers:"
+    puts "Phone Numbers:"
     @phone_numbers.each {|i| puts "- #{i}"}
   end
 end
 
 
-a = Person.new 'joe', 'bloggs', '1 Jan 1990'
-a.add_email 'george@foo.com'
-a.add_email 'norge@foo.com'
-a.add_email 'lorge@foo.com'
-a.add_phone '123'
-a.add_phone '456'
-a.add_phone '789'
-a.print_details
-
 class FamilyMember < Person
 attr_reader :relationship
 
-  def initialize first_name, surname, dob='1 Jan 1900', relationship='friend'
+ def initialize first_name, surname, dob=nil, relationship=nil
+    @relationship = relationship.capitalize if relationship
     super(first_name, surname, dob)
-    @relationship = relationship.capitalize
   end
 end
 
@@ -89,19 +78,33 @@ class AddressBook
     @people = []
   end
 
-  def add ppl
-    unless ppl.is_a? Person
-      raise TypeError, 'This is not a person or family member'
+  def add pers
+    if pers.is_a? Person
+      @people << pers
     else
-      @people << ppl.fullname
+      raise TypeError, 'This is not a person or family member'
     end
   end
 
   def list
-    puts "Address Book \n------------ \n"
-    @people.each_with_index {|name, index| puts "Entry #{index+1}: #{name}"}
+    puts "Address Book"
+    puts "-------------"
+    @people.each_with_index do |name, index| puts "Entry #{index+1}: #{name.fullname}"
+    end
   end
 
+
+  def load_yaml(file)
+    count = 0
+    data = YAML.load_file(file)
+    data['people'].each do |n|
+      if n["relationship"]
+        @people << FamilyMember.new(n["first_name"], n["surname"], n["dob"], n["relationship"])
+      else
+        @people << Person.new(n["first_name"], n["surname"], n["dob"])
+      end
+    end
+  end
 end
 
 
