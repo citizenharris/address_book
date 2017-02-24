@@ -1,1 +1,5 @@
-# address_book Project
+# Address Book Project
+
+You'll need rspec to run all the tests.
+
+

@@ -1,0 +1,40 @@
+people:
+  - first_name: Joe
+    surname: Bloggs
+    dob: 1 Jan 1990
+    relationship: son
+    emails:
+      - joe@example.com
+      - joe.bloggs@work.com
+    phones:
+      - 0771234568
+      - 02012345678
+  - first_name: George
+    surname: Harris
+    dob: 27 Mar 1993
+    relationship: cousin
+    emails:
+      - george@example.com
+      - george.harris@work.com
+    phones:
+      - 07963339231
+      - 02083995720
+  - first_name: Dickon
+    surname: Harris
+    dob: 27 Nov 1980
+    relationship: brother
+    emails:
+      - dickon@example.com
+      - dickon.harris@work.com
+    phones:
+      - 07737238027
+  - first_name: Neorge
+    surname: Harris
+    dob: 13 Feb 1992
+    relationship: sister
+    emails:
+      - neorge@example.com
+      - neorge.harris@work.com
+    phones:
+      - 0771234568
+      - 02012345678
