@@ -93,15 +93,19 @@ class AddressBook
     end
   end
 
-
-  def load_yaml(file)
-    count = 0
-    data = YAML.load_file(file)
-    data['people'].each do |n|
+  def load_yaml file
+    YAML.load_file(file)['people'].each do |n|
       if n["relationship"]
-        @people << FamilyMember.new(n["first_name"], n["surname"], n["dob"], n["relationship"])
+        person = FamilyMember.new(n["first_name"], n["surname"], n["dob"], n["relationship"])
       else
-        @people << Person.new(n["first_name"], n["surname"], n["dob"])
+        person = Person.new(n["first_name"], n["surname"], n["dob"])
+        n['emails'].each do |email|
+          person.add_email email
+        end
+        n['phones'].each do |phone|
+          person.add_phone phone
+        end
+        @people << person
       end
     end
   end
